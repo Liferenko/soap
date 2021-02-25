@@ -11,6 +11,9 @@ SOAP client for Elixir programming language
 Fork goal: to solve an issue "BadMapError: expect map, got nil".
 Hypothesis: not all headers are supported in production library
 
+Little victory:
+- looks like the problem was in using mix.exs>>deps[{:soap, "~> 1.0"}] instead of latest version. Yep, it might be unsafe to use unstable version, but it seems like BadMapError is already solved in master branch, but is not released yet
+- ...
 
 
 
