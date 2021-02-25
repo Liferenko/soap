@@ -16,6 +16,11 @@ defmodule Soap.Request do
     request_headers = Headers.build(wsdl, operation, request_headers)
     body = Params.build_body(wsdl, operation, params, soap_headers)
 
+    IO.inspect(url, label: "============ This is an url before request")
+    IO.inspect(request_headers, label: "============ This is request_headers before request")
+    IO.inspect(body, label: "============ This is body before request")
+    IO.puts("Is there a definitions?")
+
     HTTPoison.post(url, body, request_headers, opts)
   end
 
