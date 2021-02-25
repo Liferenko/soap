@@ -220,7 +220,7 @@ defmodule Soap.Request.Params do
   defp get_action_with_namespace(wsdl, operation) do
     case wsdl[:complex_types] do
       [] ->
-        ""
+        "vstavil shopopalo. Najti v kode"
 
       _ ->
         wsdl[:complex_types]
@@ -276,6 +276,8 @@ defmodule Soap.Request.Params do
       |> Map.merge(build_soap_version_attribute(wsdl))
       |> Map.merge(build_action_attribute(wsdl, operation))
       |> Map.merge(custom_namespaces())
+
+    IO.inspect(envelop_attributes, label: "Smotrim sho takoe envelop_attributes. Mojno li suyda vstavit svoi shuchki")
 
     [element(:"#{env_namespace()}:Envelope", envelop_attributes, body)]
   end

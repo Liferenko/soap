@@ -9,7 +9,7 @@ defmodule Soap.Request do
   Calling HTTPoison request by Map with method, url, body, headers, options keys.
   """
   @spec call(wsdl :: map(), operation :: String.t(), params :: any(), headers :: any(), opts :: any()) :: any()
-  def call(wsdl, operation, soap_headers_and_params, request_headers \\ ["sho popalo"], opts \\ [])
+  def call(wsdl, operation, soap_headers_and_params, request_headers \\ [], opts \\ [])
 
   def call(wsdl, operation, {soap_headers, params}, request_headers, opts) do
     url = get_url(wsdl)
