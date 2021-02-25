@@ -274,12 +274,29 @@ defmodule Soap.Request.Params do
     envelop_attributes =
       @schema_types
       |> Map.merge(build_soap_version_attribute(wsdl))
-      |> Map.merge(build_action_attribute(wsdl, operation))
-      |> Map.merge(custom_namespaces())
+      #|> Map.merge(build_action_attribute(wsdl, operation))
+      #|> Map.merge(custom_namespaces())
+      |> Map.merge(add_our_hardcoded_attributes())
 
-    IO.inspect(envelop_attributes, label: "Smotrim sho takoe envelop_attributes. Mojno li suyda vstavit svoi shuchki")
+    IO.inspect(custom_namespaces(), label: "takogo vida doljny byt")
+    IO.inspect(custom_namespaces(), label: "takogo vida doljny byt")
+    IO.inspect(envelop_attributes, label: "Norm vyglyadyat oni?")
 
     [element(:"#{env_namespace()}:Envelope", envelop_attributes, body)]
+  end
+  
+  @spec add_our_hardcoded_attributes() :: map
+  defp add_our_hardcoded_attributes() do
+    %{
+        "xmlns:env" => "http://www.w3.org/2003/05/soap-envelope", 
+        "xmlns:ns1" => "urn:riamethods-bonus",
+        "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+        "xmlns:enc" => "http://www.w3.org/2003/05/soap-encoding",
+        "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
+        "xmlns:ns2" => "http://oplaty.ria.com/types",
+        "xmlns:ns3" => "http://xml.apache.org/xml-soap",
+    }
   end
 
   @spec build_soap_version_attribute(Map.t()) :: map()
