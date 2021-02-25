@@ -274,12 +274,11 @@ defmodule Soap.Request.Params do
     envelop_attributes =
       @schema_types
       |> Map.merge(build_soap_version_attribute(wsdl))
-      #|> Map.merge(build_action_attribute(wsdl, operation))
-      #|> Map.merge(custom_namespaces())
+      |> Map.merge(build_action_attribute(wsdl, operation))
+      |> Map.merge(custom_namespaces())
       |> Map.merge(add_our_hardcoded_attributes())
 
-    IO.inspect(custom_namespaces(), label: "takogo vida doljny byt")
-    IO.inspect(custom_namespaces(), label: "takogo vida doljny byt")
+    IO.inspect(build_action_attribute(wsdl, operation), label: "takogo vida doljny byt")
     IO.inspect(envelop_attributes, label: "Norm vyglyadyat oni?")
 
     [element(:"#{env_namespace()}:Envelope", envelop_attributes, body)]
