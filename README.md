@@ -7,6 +7,28 @@
 
 SOAP client for Elixir programming language
 
+## TEMP BLOCK
+Fork goal: to solve an issue "BadMapError: expect map, got nil".
+Hypothesis: not all headers are supported in production library
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Installation
 
 1) Add `soap` to your deps:
