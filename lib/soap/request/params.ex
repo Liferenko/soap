@@ -288,7 +288,7 @@ defmodule Soap.Request.Params do
   defp add_our_hardcoded_attributes() do
     %{
         "xmlns:env" => "http://www.w3.org/2003/05/soap-envelope", 
-        "xmlns:ns1" => "urn:riamethods-bonus",
+        "xmlns:ns1" => "urn:riamethods-make-order#r",
         "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xmlns:enc" => "http://www.w3.org/2003/05/soap-encoding",
