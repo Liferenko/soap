@@ -123,6 +123,7 @@ defmodule Soap.Request.Params do
   end
 
   defp build_soap_header(wsdl, operation, headers) do
+    IO.inspect(headers, label: "\n==\n==\n==\n==#{__MODULE__} | build_soap_header/3 -> headers:")
     case headers |> construct_xml_request_header do
       {:error, messages} ->
         {:error, messages}
