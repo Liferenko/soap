@@ -220,7 +220,7 @@ defmodule Soap.Request.Params do
   defp get_action_with_namespace(wsdl, operation) do
     case wsdl[:complex_types] do
       [] ->
-        "vstavil shopopalo. Najti v kode"
+        "" #TODO REMOVE BEFORE FLIGHT Here I may to hardcode complex types
 
       _ ->
         wsdl[:complex_types]
