@@ -64,18 +64,7 @@ defmodule Soap.Request.ParamsTest do
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+  # TODO Remove before flight
   @tag unofficial_test: true
   describe "Liferenko custom tests" do
     test "#build_body without complex types" do

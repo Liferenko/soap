@@ -4,6 +4,7 @@ defmodule Soap.Request.Params do
   """
   import XmlBuilder, only: [element: 3, document: 1, generate: 2]
 
+  # TODO Remove before flight
   @our_hardcoded_schema_types %{
     "xmlns:SOAP-ENV" => "http://schemas.xmlsoap.org/soap/envelope/",
     "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
@@ -288,28 +289,14 @@ defmodule Soap.Request.Params do
       |> Map.merge(build_soap_version_attribute(wsdl))
       |> Map.merge(build_action_attribute(wsdl, operation))
       |> Map.merge(custom_namespaces())
-      |> Map.merge(add_our_hardcoded_attributes())
-    """
 
     IO.inspect(build_action_attribute(wsdl, operation), label: "takogo vida doljny byt")
     IO.inspect(envelop_attributes, label: "Norm vyglyadyat oni?")
+    """
 
     [element(:"#{env_namespace()}:Envelope", envelop_attributes, body)]
   end
   
-  @spec add_our_hardcoded_attributes() :: map
-  defp add_our_hardcoded_attributes() do
-    %{
-      "xmlns:SOAP-ENV" => "http://schemas.xmlsoap.org/soap/envelope/",
-      "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
-      "xmlns:ns1" => "urn:riamethods-make-order",
-      "xmlns:ns2" => "http://credit.ria.com/types",
-      "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
-      "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-      "SOAP-ENV:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/"
-    }
-  end
-
   @spec build_soap_version_attribute(Map.t()) :: map()
   defp build_soap_version_attribute(wsdl) do
     soap_version = wsdl |> soap_version() |> to_string
