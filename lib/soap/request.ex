@@ -18,7 +18,7 @@ defmodule Soap.Request do
 
     IO.inspect(url, label: "============ This is an url before request")
     IO.inspect(request_headers, label: "============ This is request_headers before request")
-    IO.inspect(body, label: "============ This is body before request")
+    IO.inspect(SweetXml.parse(body), label: "============ This is body before request")
 
     HTTPoison.post(url, body, request_headers, opts)
   end
