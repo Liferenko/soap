@@ -5,13 +5,13 @@ defmodule Soap.Request.Params do
   import XmlBuilder, only: [element: 3, document: 1, generate: 2]
 
   @our_hardcoded_schema_types %{
-    "xmlns:SOAP-ENV" => "http://schemas.xmlsoap.org/soap/envelope/",
-    "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
+    "xmlns:env" => "http://schemas.xmlsoap.org/soap/envelope/",
+    "xmlns:enc" => "http://schemas.xmlsoap.org/soap/encoding/",
     "xmlns:ns1" => "urn:riamethods-make-order",
     "xmlns:ns2" => "http://credit.ria.com/types",
     "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
     "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-    "SOAP-ENV:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/"
+    "env:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/"
   }
 
   @schema_types %{
