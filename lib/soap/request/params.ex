@@ -4,6 +4,16 @@ defmodule Soap.Request.Params do
   """
   import XmlBuilder, only: [element: 3, document: 1, generate: 2]
 
+  @our_hardcoded_schema_types %{
+    "xmlns:SOAP-ENV" => "http://schemas.xmlsoap.org/soap/envelope/",
+    "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
+    "xmlns:ns1" => "urn:riamethods-make-order",
+    "xmlns:ns2" => "http://credit.ria.com/types",
+    "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+    "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+    "SOAP-ENV:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/"
+  }
+
   @schema_types %{
     "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
     "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance"
@@ -24,7 +34,8 @@ defmodule Soap.Request.Params do
   def build_body(wsdl, operation, params, headers) do
     with {:ok, body} <- build_soap_body(wsdl, operation, params),
          {:ok, header} <- build_soap_header(wsdl, operation, headers) do
-      [header, body]
+      # TODO Remove before flight [header, body]
+      [body]
       |> add_envelope_tag_wrapper(wsdl, operation)
       |> document
       |> generate(format: :none)
@@ -123,7 +134,6 @@ defmodule Soap.Request.Params do
   end
 
   defp build_soap_header(wsdl, operation, headers) do
-    IO.inspect(headers, label: "\n==\n==\n==\n==#{__MODULE__} | build_soap_header/3 -> headers:")
     case headers |> construct_xml_request_header do
       {:error, messages} ->
         {:error, messages}
@@ -132,7 +142,7 @@ defmodule Soap.Request.Params do
         body =
           validated_params
           |> add_header_part_tag_wrapper(wsdl, operation)
-          |> add_header_tag_wrapper
+          #TODO remove before flight |> add_header_tag_wrapper
 
         {:ok, body}
     end
@@ -272,11 +282,14 @@ defmodule Soap.Request.Params do
   @spec add_envelope_tag_wrapper(body :: any(), wsdl :: map(), operation :: String.t()) :: any()
   defp add_envelope_tag_wrapper(body, wsdl, operation) do
     envelop_attributes =
+      @our_hardcoded_schema_types
+    """
       @schema_types
       |> Map.merge(build_soap_version_attribute(wsdl))
       |> Map.merge(build_action_attribute(wsdl, operation))
       |> Map.merge(custom_namespaces())
       |> Map.merge(add_our_hardcoded_attributes())
+    """
 
     IO.inspect(build_action_attribute(wsdl, operation), label: "takogo vida doljny byt")
     IO.inspect(envelop_attributes, label: "Norm vyglyadyat oni?")
@@ -287,14 +300,13 @@ defmodule Soap.Request.Params do
   @spec add_our_hardcoded_attributes() :: map
   defp add_our_hardcoded_attributes() do
     %{
-      "xmlns:env" => "http://www.w3.org/2003/05/soap-envelope",
+      "xmlns:SOAP-ENV" => "http://schemas.xmlsoap.org/soap/envelope/",
+      "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
       "xmlns:ns1" => "urn:riamethods-make-order",
+      "xmlns:ns2" => "http://credit.ria.com/types",
       "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
       "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-      "xmlns:enc" => "http://www.w3.org/2003/05/soap-encoding",
-      "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
-      "xmlns:ns2" => "http://oplaty.ria.com/types",
-      "xmlns:ns3" => "http://xml.apache.org/xml-soap",
+      "SOAP-ENV:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/"
     }
   end
 

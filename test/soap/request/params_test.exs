@@ -61,4 +61,29 @@ defmodule Soap.Request.ParamsTest do
 
     assert function_result == xml_body
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @tag unofficial_test: true
+  describe "Liferenko custom tests" do
+    test "#build_body without complex types" do
+      xml_body = Fixtures.load_xml("custom/runCustomRequestMakeOrder.xml")
+      {_, wsdl} = Wsdl.parse_from_file(Fixtures.get_file_path("wsdl/CyberSourceTransaction.wsdl"))
+      function_result = Params.build_body(wsdl, "runTransaction", %{}, nil)
+
+      assert function_result == xml_body
+    end
+  end
 end
