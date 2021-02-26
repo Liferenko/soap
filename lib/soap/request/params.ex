@@ -287,11 +287,14 @@ defmodule Soap.Request.Params do
   @spec add_our_hardcoded_attributes() :: map
   defp add_our_hardcoded_attributes() do
     %{
+      "xmlns:env" => "http://www.w3.org/2003/05/soap-envelope",
       "xmlns:ns1" => "urn:riamethods-make-order",
+      "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+      "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
       "xmlns:enc" => "http://www.w3.org/2003/05/soap-encoding",
       "xmlns:SOAP-ENC" => "http://schemas.xmlsoap.org/soap/encoding/",
       "xmlns:ns2" => "http://oplaty.ria.com/types",
-      "xmlns:ns3" => "http://xml.apache.org/xml-soap"
+      "xmlns:ns3" => "http://xml.apache.org/xml-soap",
     }
   end
 
