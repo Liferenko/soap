@@ -16,7 +16,9 @@ defmodule Soap.Request do
     request_headers = Headers.build(wsdl, operation, request_headers)
     body = Params.build_body(wsdl, operation, params, soap_headers)
 
-    # TODO Remove before flight: IO.inspect(body, label: "============ This is body before request")
+    # TODO Remove before flight:
+    IO.inspect(request_headers, label: "============ This is headers before request")
+    IO.inspect(body, label: "============ This is body before request")
 
     HTTPoison.post(url, body, request_headers, opts)
   end
